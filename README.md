@@ -1,15 +1,15 @@
-# WSL Developer Experience Scripts
+# WSL Developer Experience (DX) Scripts
 
-Scripts to improve Developer Experience (DX) on Windows Subsystem for Linux distros.
+Scripts to improve DX on Windows Subsystem for Linux distros.
 
 ## What do the Scripts do?
 
-- Install Ubuntu for WSL
-- Install standard development distro packages
+- Install WSL Ubuntu if not already installed
+- Install useful distro packages
 - Install and configure [Zsh](https://www.zsh.org/)
   - Set the default shell to Zsh
   - Install [Oh My Zsh](https://ohmyz.sh/)
-  - Enable useful Oh My Zsh plugins
+  - [Enable Oh My Zsh plugins](./agnostic.sh#L23)
   - Enable [Zsh Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - Install and configure [Starship Cross-Shell Prompt](https://starship.rs/)
 - Install and configure [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm)
@@ -18,10 +18,12 @@ Scripts to improve Developer Experience (DX) on Windows Subsystem for Linux dist
   - Configure Zsh settings to for better `ls` colours
 - Install and configure [fzf](https://github.com/junegunn/fzf)
   - Configure fzf for Zsh
+- Install and configure SSH
+  - Configure SSH for Zsh
 
 ## Install
 
-1. Open a PowerShell prompt
+1. Open a PowerShell prompt as an Administrator
 1. run
 
    ```powershell
@@ -32,11 +34,9 @@ Scripts to improve Developer Experience (DX) on Windows Subsystem for Linux dist
 
    [Download the Zip](https://github.com/nerdyman/wsl-dx-scripts/archive/refs/heads/main.zip), extract it, and run `./run.ps1` manually
 
-1. Get developin'
-
 ## Available Scripts
 
-Although this is primarily aimed towards WSL installs, the actual distro scripts can run directly on a Linux machine.
+Although this is primarily aimed towards WSL installs, the actual distro scripts can run directly on a Linux box.
 
 - [`agnostic.sh`](./agnostic.sh) - \*_should_ work on any Linux distro
   - Install and configure Oh My Zsh
@@ -44,6 +44,7 @@ Although this is primarily aimed towards WSL installs, the actual distro scripts
   - Install and configure Starship Cross-Shell Prompt
   - Configure default shell (Zsh)
   - Configure fzf for Zsh (fzf install is handled in distro script)
+  - Configure grc for Zsh (grc install is handled in distro script)
   - Configure SSH for Zsh (SSH install is handled in distro script)
 - [`ubuntu.sh`](./ubuntu.sh) - Install and configure Ubuntu packages
   - [Install fzf, SSH, Zsh, and useful shell utilities](./ubuntu.sh#L8)

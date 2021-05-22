@@ -5,7 +5,7 @@
 echo "[Ubuntu]"
 echo "=> Installing packages"
 sudo apt update
-sudo apt install bash-completion colordiff curl fzf git gzip jq lzop p7zip unzip xz zip zsh zsh-syntax-highlighting
+sudo apt install bash-completion colordiff curl fzf git grc gzip jq lzop p7zip unzip xz zip zsh zsh-syntax-highlighting
 
 source agnostic.sh
 
