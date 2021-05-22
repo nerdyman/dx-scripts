@@ -16,7 +16,7 @@ Scripts to improve DX on Windows Subsystem for Linux distros.
   - Enable Zsh hook to automatically load Node.js version from an `.nvmrc` config
 - Install and configure [Generic Colouriser (grc)](https://github.com/garabik/grc)
   - Configure Zsh settings to for better `ls` colours
-- Install and configure [fzf](https://github.com/junegunn/fzf)
+- Install and configure [fzf](https://github.com/junegunn/fzf) (fuzzy finder)
   - Configure fzf for Zsh
 - Install and configure SSH
   - Configure SSH for Zsh
@@ -36,7 +36,15 @@ Scripts to improve DX on Windows Subsystem for Linux distros.
 
 ## Available Scripts
 
-Although this is primarily aimed towards WSL installs, the actual distro scripts can run directly on a Linux box.
+The PowerShell (`*.ps1`) scripts are only required to install and configure WSL on the Windows
+side - you can run the shell scripts (`*.sh)` directly on a Linux install if you want.
+
+### PowerShell Scripts
+
+- [`clone.ps1`](./clone.ps1) - Clone this repo and run the install
+- [`run.ps1`](./run.ps1) - Install WSL, the WSL distro and configure WSL
+
+### Shell Scripts
 
 - [`agnostic.sh`](./agnostic.sh) - \*_should_ work on any Linux distro
   - Install and configure Oh My Zsh

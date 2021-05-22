@@ -140,7 +140,7 @@ function Start-PostHooks {
 }
 
 function Show-Done {
-  Write-Host -ForegroundColor White -BackgroundColor Black `n"$(Write-Emoji "1f3c1") That was pretty cool."`n
+  Write-Host -ForegroundColor White -BackgroundColor Black `n"That was pretty sweet $(Write-Emoji "1f9c1")"`n
 }
 
 # 🚀
