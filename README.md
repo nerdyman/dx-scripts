@@ -4,7 +4,7 @@ Scripts to improve DX on Windows Subsystem for Linux distros.
 
 ## What do the Scripts do?
 
-- Install WSL Ubuntu if not already installed
+- Install WSL Ubuntu (or copy existing install)
 - Install useful distro packages
 - Install and configure [Zsh](https://www.zsh.org/)
   - Set the default shell to Zsh

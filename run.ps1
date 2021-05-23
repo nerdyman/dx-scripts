@@ -1,5 +1,23 @@
 #Requires -RunAsAdministrator
+Param ([string] $distro = "ubuntu")
+
 Set-StrictMode -Version 3
+$ErrorActionPreference = 'Stop'
+
+$TEXT_INFO = (Get-Culture).TextInfo
+# Distro to install.
+$TARGET_DISTRO = "$($TEXT_INFO.toLower($distro))"
+# List of supported distros.
+$TARGET_DISTROS_AVAILABLE = @("arch-linux", "ubuntu")
+# Dictionary of supported distros.
+$TARGET_DISTROS_ENUM = [pscustomobject]@{
+  archLinux = $TARGET_DISTROS_AVAILABLE[0]
+  ubuntu    = $TARGET_DISTROS_AVAILABLE[1]
+}
+# Friendly name for the new distro instance.
+$TARGET_INSTANCE = "${TARGET_DISTRO}-dx"
+
+### [Utilities] ###
 
 # Welcome to Windows. The OS where the DX is 💩 and the encoding doesn't matter.
 function Write-Emoji {
@@ -10,12 +28,6 @@ function Write-Emoji {
   $Unicode = "u+${Emoji}" -replace 'U\+', ''
   [System.Char]::ConvertFromUtf32([System.Convert]::toInt32($Unicode, 16))
 }
-
-Write-Host `
-  "[" -ForegroundColor DarkGray -BackgroundColor Black -NoNewline; `
-  Write-Host "$(Write-Emoji "1F427") WSL DX Scripts $(Write-Emoji "1F427")" -ForegroundColor White -BackgroundColor Black -NoNewline; `
-  Write-Host "]" -ForegroundColor DarkGray -BackgroundColor Black `n
-;
 
 function Write-Heading {
   param (
@@ -70,7 +82,35 @@ function Test-CommandDoesExist {
   }
 
   return $false
+}
 
+### [Tasks] ###
+
+function Show-BuildParams {
+  Write-Host `
+    "[" -ForegroundColor DarkGray -BackgroundColor Black -NoNewline; `
+    Write-Host "$(Write-Emoji "1F427") WSL DX Scripts $(Write-Emoji "1F427")" -ForegroundColor White -BackgroundColor Black -NoNewline; `
+    Write-Host "]" -ForegroundColor DarkGray -BackgroundColor Black `n
+  ;
+
+  if (!($TARGET_DISTROS_AVAILABLE -contains $TARGET_DISTRO)) {
+    Write-Host -ForegroundColor Red -BackgroundColor Black "Invalid '-distro' provided, must be one of:"
+
+    ForEach ($Node in $TARGET_DISTROS_AVAILABLE) {
+      Write-Host -ForegroundColor Red -BackgroundColor Black " - $($Node)"
+    }
+
+    Write-Host -ForegroundColor White -BackgroundColor Black `n"Exiting"`n
+
+    exit
+  }
+
+  Write-Host `
+    "Installing distro '" -ForegroundColor White -BackgroundColor Black -NoNewline; `
+    Write-Host "${TARGET_DISTRO}" -ForegroundColor Green -BackgroundColor Black -NoNewline; `
+    Write-Host "' as '" -ForegroundColor White -BackgroundColor Black -NoNewline; `
+    Write-Host "${TARGET_INSTANCE}" -ForegroundColor Green -BackgroundColor Black -NoNewline; `
+    Write-Host "'" -ForegroundColor White -BackgroundColor Black `n
 }
 
 function Install-WSL {
@@ -94,31 +134,40 @@ function Install-WSL {
 function Install-Distro {
   Write-Heading "Install Distro"
 
-  if ((Test-CommandDoesExist "ubuntu")) {
-    Write-Heading -Depth 1 "Ubuntu is already installed $(Write-Emoji "1f389")"
-
-    return
-  }
-
-  if ((Test-CommandDoesExist "choco") -eq $false) {
-    Write-Heading -Depth 1 "Installing Chocolately on Windows Host"
-    Set-ExecutionPolicy Bypass -Scope Process -Force; `
-      [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
-      Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    ;
+  if ((Test-CommandDoesExist "${TARGET_DISTRO}.exe")) {
+    Write-Heading -Depth 1 "$($TEXT_INFO.ToTitleCase($TARGET_DISTRO)) is already installed $(Write-Emoji "1f389")"
   }
   else {
-    Write-Heading -Depth 1 "Chocolately is already installed $(Write-Emoji "1f389")"
-  }
+    if ((Test-CommandDoesExist "choco") -eq $false) {
+      Write-Heading -Depth 1 "Installing Chocolately on Windows"
+      Set-ExecutionPolicy Bypass -Scope Process -Force; `
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
+        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+      ;
+    }
+    else {
+      Write-Heading -Depth 1 "Chocolately is already installed $(Write-Emoji "1f389")"
+    }
 
-  $Distro = "wsl-ubuntu-2004"
+    # Default distro to Ubuntu.
+    $Distro = "wsl-ubuntu-2004"
 
-  if ((Test-ChocoPackageExists "${Distro}") -eq $false) {
+    if (($TARGET_DISTRO) -eq ($TARGET_DISTROS_ENUM.archLinux)) {
+      $Distro = "wsl-archlinux"
+    }
+
     Write-Heading -Depth 1 "Installing ${Distro}"
     Invoke-Expression choco install ${Distro} -y
   }
-  # Add-AppxPackage -Path "http://tlu.dl.delivery.mp.microsoft.com/filestreamingservice/files/7737ff0f-9d2c-4bf3-85a9-ae06cde4776b?P1=1621725193&P2=404&P3=2&P4=BOtk7nczjjgCj987sLsH9TB%2b6wpYONIflFjVF4qR4pCVdsH2gGFfswLfphel6UT7ZAXioz3XyzfjGsIVLRGRCg%3d%3d"
-  # Invoke-Expression winget install Ubuntu --force
+
+  $TargetBaseDirectory = "$HOME\.wsl"
+  Write-Heading -Depth 1 "Instantiating install in '${TargetBaseDirectory}'"
+  [void][System.IO.Directory]::CreateDirectory($TargetBaseDirectory)
+
+  Push-Location $TargetBaseDirectory
+  & wsl --export $TARGET_DISTRO "${TARGET_DISTRO}.tar"
+  & wsl --import $TARGET_INSTANCE .\$TARGET_INSTANCE "${TARGET_DISTRO}.tar" --version 2
+  Pop-Location
 }
 
 function Install-Packages {
@@ -144,6 +193,7 @@ function Show-Done {
 }
 
 # 🚀
+Show-BuildParams
 Install-WSL
 Install-Distro
 Install-Packages
