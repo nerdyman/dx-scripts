@@ -128,7 +128,7 @@ function Install-WSL {
   }
 
   Write-Heading -Depth 1 "Setting default WSL version"
-  wsl --set-default-version 2
+  & wsl --set-default-version 2 > $null
 }
 
 function Install-Distro {

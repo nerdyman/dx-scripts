@@ -37,7 +37,7 @@ Scripts to improve DX on Windows Subsystem for Linux distros.
 ## Available Scripts
 
 The PowerShell (`*.ps1`) scripts are only required to install and configure WSL on the Windows
-side - you can run the shell scripts (`*.sh)` directly on a Linux install if you want.
+side - you can run the shell scripts (`*.sh)` directly on Linux if you want.
 
 ### PowerShell Scripts
 
