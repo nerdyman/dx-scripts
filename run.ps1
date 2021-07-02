@@ -1,7 +1,7 @@
 #Requires -RunAsAdministrator
 Param ([string] $distro = "ubuntu")
 
-Set-StrictMode -Version 3
+Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $TEXT_INFO = (Get-Culture).TextInfo
@@ -142,7 +142,7 @@ function Install-Distro {
       Write-Heading -Depth 1 "Installing Chocolately on Windows"
       Set-ExecutionPolicy Bypass -Scope Process -Force; `
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        & ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       ;
     }
     else {
@@ -157,7 +157,7 @@ function Install-Distro {
     }
 
     Write-Heading -Depth 1 "Installing ${Distro}"
-    Invoke-Expression choco install ${Distro} -y
+    & choco install ${Distro} -y
   }
 
   $TargetBaseDirectory = "$HOME\.wsl"
@@ -165,7 +165,13 @@ function Install-Distro {
   [void][System.IO.Directory]::CreateDirectory($TargetBaseDirectory)
 
   Push-Location $TargetBaseDirectory
-  & wsl --export $TARGET_DISTRO "${TARGET_DISTRO}.tar"
+  $WslExportResult = & wsl --export $TARGET_DISTRO "${TARGET_DISTRO}.tar"
+
+  if (($WslExportResult.StartsWith("Please enable the Virtual Machine"))) {
+    Write-Error "Virtual Machine Platform is not enabled" -ErrorAction Stop
+    exit
+  }
+
   & wsl --import $TARGET_INSTANCE .\$TARGET_INSTANCE "${TARGET_DISTRO}.tar" --version 2
   Pop-Location
 }
