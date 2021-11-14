@@ -7,6 +7,11 @@ if test ! -f "/bin/zsh"; then
   exit 127
 fi
 
+echo "[agnostic][Set Up Aliases]"
+_config_dir="${HOME}/.config"
+mkdir -p  "$_config_dir"
+cp ./.config/aliases "$_config_dir"
+
 echo "[agnostic][Set Shell]"
 sudo chsh -s /bin/zsh
 
@@ -37,6 +42,7 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
+
 _EOF_
 
 echo "[agnostic][Configure Zsh Syntax Highlighting]"
@@ -53,7 +59,11 @@ cat >> "$_zshrc_path" <<_EOF_
 [[ -f "${HOME}/.config/aliases" ]] && source "${HOME}/.config/aliases"
 [[ -f "${HOME}/.config/aliases.private" ]] && source "${HOME}/.config/aliases.private"
 [[ -f "${HOME}/.config/env.private" ]] && source "${HOME}/.config/env.private"
+
 _EOF_
+
+echo "[agnostic][Install nvm]"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 echo "[agnostic][Starship Cross-Shell Prompt]"
 echo "[agnostic] => Installing..."
@@ -63,13 +73,5 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export STARSHIP_SHELL=zsh
 eval "$(starship init zsh)"
 _EOF_
-
-echo "[agnostic][Install nvm]"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
-echo "[agnostic][Set Up Aliases]"
-_config_dir="${HOME}/.config"
-mkdir -p  "$_config_dir"
-cp ./.config/aliases "$_config_dir"
 
 echo "[agnostic] Done"
