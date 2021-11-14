@@ -13,6 +13,4 @@ export __ZSH_SYNAX_HIGHLIGHTING_PATH__="/usr/share/zsh-syntax-highlighting/zsh-s
 echo "[ubuntu] Running Agnostic Script"
 source ./agnostic.sh
 
-zsh
-
 echo "[ubuntu] Done"
