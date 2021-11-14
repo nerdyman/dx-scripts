@@ -71,7 +71,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 echo "[agnostic][Starship Cross-Shell Prompt]"
 echo "[agnostic] => Installing..."
-sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+sh -c "$(curl -fsSL https://starship.rs/install.sh)" "" -y
 cat >> "${_zshrc_path}" <<_EOF_
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export STARSHIP_SHELL=zsh
