@@ -23,14 +23,18 @@ if test -f "${_zshrc_path}"; then
     cp "${_zshrc_path}" "${_zshrc_path}.old"
 fi
 
-sed -i '1s/^/export TERM=xterm\nexport EDITOR=vim\n/' ~/.zshrc
-
 echo "[agnostic][Oh My Zsh]"
 echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "[agnostic] => Enabling plugins"
 sed -i 's/plugins=\n(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn\n/' ~/.zshrc
 echo "NVM_AUTOLOAD=1" >> "$_zshrc_path"
+
+echo "[agnostic][Set Shell Defaults]"
+cat >> "${_zshrc_path}" <<_EOF_
+export EDITOR=vim
+export TERM=xterm
+_EOF_
 
 echo "[agnostic][Configure fzf for Zsh]"
 cat >> "${_zshrc_path}" <<_EOF_
