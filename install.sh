@@ -24,7 +24,7 @@ fi
 
 popd
 
-rm -r "${_temp_dir} ${_temp_dir}.tar.gz"
+rm -r "${_temp_dir}" "${_temp_dir}.tar.gz"
 
 cd ~
 zsh
