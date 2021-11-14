@@ -2,6 +2,8 @@
 
 # shellcheck disable=SC1091,SC2164
 
+export __HAS_PREINSTALL_SCRIPT__=true
+
 echo "[install]"
 
 _temp_dir=$(mktemp -d)

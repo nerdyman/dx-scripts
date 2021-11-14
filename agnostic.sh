@@ -78,6 +78,8 @@ export STARSHIP_SHELL=zsh
 eval "$(starship init zsh)"
 _EOF_
 
-zsh
+if ! test -n "${__HAS_PREINSTALL_SCRIPT__}"; then
+  zsh
+fi
 
 echo "[agnostic] Done"
