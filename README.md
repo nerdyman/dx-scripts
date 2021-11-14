@@ -57,6 +57,6 @@ distro with its own script to auto install dependencies for the agnostic script.
   - Configure grc for Zsh (grc install is handled in distro script)
   - Configure SSH for Zsh (SSH install is handled in distro script)
 - [`ubuntu.sh`](./ubuntu.sh) - Install and configure Ubuntu packages
-  - [Install fzf, SSH, Zsh, and useful shell utilities](./ubuntu.sh#L8)
+  - [Install fzf, SSH, Zsh, and useful shell utilities](./ubuntu.sh#L9)
 
 \* Only tested on Ubuntu.

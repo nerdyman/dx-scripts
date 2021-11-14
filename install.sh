@@ -6,7 +6,7 @@ echo "[install]"
 
 _TEMP_DIR=$(mktemp -d)
 curl https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz | tar xz -C "$_TEMP_DIR"
-cd "$_TEMP_DIR"
+pushd "$_TEMP_DIR"
 
 if test "$(grep -e ID=ubuntu /etc/os-release)"; then
   echo "[install] => Ubuntu detected"
@@ -15,5 +15,7 @@ else
   echo "[install] => Distro does not have a preset script, using agnostic set up"
   source ./agnostic.sh
 fi
+
+popd
 
 echo "[install] Done"
