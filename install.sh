@@ -9,7 +9,7 @@ curl -SL https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz |
 
 echo "[install] => Using temporary directory $_temp_dir"
 
-pushd "$_temp_dir"
+pushd "$_temp_dir/dx-scripts-main"
 
 if test "$(grep -e ID=ubuntu /etc/os-release)"; then
   echo "[install] => Ubuntu detected"
