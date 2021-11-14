@@ -4,8 +4,11 @@
 
 echo "[install]"
 
-_TEMP_DIR=$(mktemp -d)
-curl https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz | tar xz -C "$_TEMP_DIR"
+_temp_dir=$(mktemp -d)
+curl https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz | tar xz -C "$_temp_dir"
+
+echo "[install] => Using temporary directory $_temp_dir"
+
 pushd "$_TEMP_DIR"
 
 if test "$(grep -e ID=ubuntu /etc/os-release)"; then
