@@ -23,7 +23,7 @@ Scripts to improve Developer Experience.
 ## Install
 
 ```sh
-sh -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
 ```
 
 ## Alias and Environment Files
