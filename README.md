@@ -48,7 +48,7 @@ distro with its own script to auto install dependencies for the agnostic script.
 
 ## Scripts
 
-- [`agnostic.sh`](./agnostic.sh)
+- [`agnostic.sh`](./agnostic.sh) \*
   - Install and configure Oh My Zsh
   - Install and configure nvm
   - Install and configure Starship Cross-Shell Prompt

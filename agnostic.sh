@@ -27,7 +27,7 @@ echo "[agnostic] => Enabling plugins"
 sed -i 's/plugins=(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn/' ~/.zshrc
 echo "NVM_AUTOLOAD=1" >> "$_zshrc_path"
 
-echo "[agnostic][Configure fzf for ZSH]"
+echo "[agnostic][Configure fzf for Zsh]"
 cat >> "${_zshrc_path}" <<_EOF_
 ## fzf
 setopt EXTENDED_HISTORY
@@ -39,7 +39,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 _EOF_
 
-echo "[agnostic][Configure ZSH Syntax Highlighting]"
+echo "[agnostic][Configure Zsh Syntax Highlighting]"
 if test -n "${__ZSH_SYNAX_HIGHLIGHTING_PATH__}"; then
   echo "source ${__ZSH_SYNAX_HIGHLIGHTING_PATH__}" >> "$_zshrc_path"
 else
@@ -63,5 +63,8 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export STARSHIP_SHELL=zsh
 eval "$(starship init zsh)"
 _EOF_
+
+echo "[agnostic][Install nvm]"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 echo "[agnostic] Done"
