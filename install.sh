@@ -23,6 +23,6 @@ fi
 
 popd
 
-rm -r "$_temp_dir"
+rm -r "${_temp_dir} ${_temp_dir}.tar.gz"
 
 echo "[install] Done"
