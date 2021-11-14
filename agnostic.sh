@@ -29,7 +29,7 @@ echo "[agnostic][Oh My Zsh]"
 echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "[agnostic] => Enabling plugins"
-sed -i 's/plugins=\n(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn/' ~/.zshrc
+sed -i 's/plugins=\n(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn\n/' ~/.zshrc
 echo "NVM_AUTOLOAD=1" >> "$_zshrc_path"
 
 echo "[agnostic][Configure fzf for Zsh]"
