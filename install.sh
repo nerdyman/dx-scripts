@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -e
 
 # shellcheck disable=SC1091,SC2164
 
@@ -9,7 +9,7 @@ curl https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz | tar
 
 echo "[install] => Using temporary directory $_temp_dir"
 
-pushd "$_TEMP_DIR"
+pushd "$_temp_dir"
 
 if test "$(grep -e ID=ubuntu /etc/os-release)"; then
   echo "[install] => Ubuntu detected"
