@@ -30,7 +30,7 @@ sh -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
 
 Aliases are set in [`~/.config/aliases`](./.config/aliases).
 
-`~p` is aliased to `~/projects`, you can use it like:
+`~p` is aliased to `~/Documents/projects`, you can use it like:
 
 ```
 ~p/my-cool-project/hello-world.sh
