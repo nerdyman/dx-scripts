@@ -1,57 +1,33 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 # Distro-agnostic script to install and configure devtools
 
-echo "[Set Shell]"
+if test ! -f "/bin/zsh"; then
+  echo "Zsh is not installed, cannot continue."
+  exit 127
+fi
+
+echo "[agnostic][Set Shell]"
 sudo chsh -s /bin/zsh
-echo "[/Set Shell]"
 
 _zshrc_path="${HOME}/.zshrc"
 
-echo "[Set Shell Defaults]"
+echo "[agnostic][Set Shell Defaults]"
 if test -f "${_zshrc_path}"; then
-    echo "=> Copying existing ${_zshrc_path} to ${_zshrc_path}.old"
+    echo "[agnostic] => Copying existing ${_zshrc_path} to ${_zshrc_path}.old"
     cp "${_zshrc_path}" "${_zshrc_path}.old"
 fi
+
 sed -i '1s/^/export TERM=xterm\nexport EDITOR=vim\n/' ~/.zshrc
-echo "[/Set Shell Defaults]"
 
-echo "[Oh My Zsh]"
-echo "=> Installing..."
+echo "[agnostic][Oh My Zsh]"
+echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-echo "=> Enabling plugins"
-ed -i 's/plugins=(/plugins=(\n  dircycle\n  colored-man-pages\n  fzf\n  git\n  git-flow-avh\n  npm\n  yarn/' ~/.zshrc
-echo "[/Oh My Zsh]"
+echo "[agnostic] => Enabling plugins"
+sed -i 's/plugins=(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn/' ~/.zshrc
+echo "NVM_AUTOLOAD=1" >> "$_zshrc_path"
 
-echo "[Node Version Manager]"
-echo "=> Installing"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-# Auto-load `.nvmrc` files.
-cat >> "${_zshrc_path}" <<_EOF_
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "\$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "\${nvmrc_path}")")
-
-    if [ "\$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "\$nvmrc_node_version" != "\$node_version" ]; then
-      nvm use
-    fi
-  elif [ "\$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-_EOF_
-echo "[/Node Version Manager]"
-
-echo "[Configure fzf for ZSH]"
+echo "[agnostic][Configure fzf for ZSH]"
 cat >> "${_zshrc_path}" <<_EOF_
 ## fzf
 setopt EXTENDED_HISTORY
@@ -61,25 +37,31 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
-export FZF_BASE=/usr/bin/fzf
 _EOF_
-echo "[/Configure fzf for ZSH]"
 
-echo "[Generic Colouriser]"
-echo "=> Configuring"
-cat >> "${_zshrc_path}" <<_EOF_
-# ls alias needed for grc to highlight dir listings correctly https://github.com/garabik/grc/issues/36
-alias ls='grc --colour=auto ls --color=always'
-source /etc/grc.zsh
+echo "[agnostic][Configure ZSH Syntax Highlighting]"
+if test -n "${__ZSH_SYNAX_HIGHLIGHTING_PATH__}"; then
+  echo "source ${__ZSH_SYNAX_HIGHLIGHTING_PATH__}" >> "$_zshrc_path"
+else
+  echo "[agnostic] => __ZSH_SYNAX_HIGHLIGHTING_PATH__ environment variable is not set, cannot configure plugin"
+fi
+
+echo "[agnostic][Set Up Aliases]"
+mkdir -p "${HOME}/.config"
+cp aliases "${HOME}/.config"
+cat >> "$_zshrc_path" <<_EOF_
+[[ -f "${HOME}/.config/aliases" ]] && source "${HOME}/.config/aliases"
+[[ -f "${HOME}/.config/aliases.private" ]] && source "${HOME}/.config/aliases.private"
+[[ -f "${HOME}/.config/env.private" ]] && source "${HOME}/.config/env.private"
 _EOF_
-echo "[/Generic Colouriser]"
 
-echo "[Starship Cross-Shell Prompt]"
-echo "=> Installing..."
+echo "[agnostic][Starship Cross-Shell Prompt]"
+echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 cat >> "${_zshrc_path}" <<_EOF_
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export STARSHIP_SHELL=zsh
 eval "$(starship init zsh)"
 _EOF_
-echo "[/Starship Cross-Shell Prompt]"
+
+echo "[agnostic] Done"

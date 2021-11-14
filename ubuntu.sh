@@ -1,14 +1,16 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 # shellcheck disable=SC1091
 
-echo "[Ubuntu]"
-echo "=> Installing packages"
+echo "[ubuntu]"
+
+echo "[ubuntu] => Installing packages"
 sudo apt update
-sudo apt install bash-completion colordiff curl fzf git grc gzip jq lzop p7zip unzip xz zip zsh zsh-syntax-highlighting
+sudo apt install -y bash-completion colordiff curl fzf git grc gzip jq keychain lzop neovim p7zip shellcheck sl unzip xz-utils zip zsh zsh-syntax-highlighting
 
-source agnostic.sh
+export __ZSH_SYNAX_HIGHLIGHTING_PATH__="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-echo "=> Adding zsh-syntax-highlighting to zshrc"
+echo "[ubuntu] Running Agnostic Script"
+source ./agnostic.sh
 
-echo "[/Ubuntu]"
+echo "[ubuntu] Done"

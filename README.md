@@ -1,10 +1,9 @@
-# WSL Developer Experience (DX) Scripts
+# Developer Experience (DX) Scripts
 
-Scripts to improve DX on Windows Subsystem for Linux distros.
+Scripts to improve Developer Experience.
 
 ## What do the Scripts do?
 
-- Install WSL Ubuntu (or copy existing install)
 - Install useful distro packages
 - Install and configure [Zsh](https://www.zsh.org/)
   - Set the default shell to Zsh
@@ -23,30 +22,33 @@ Scripts to improve DX on Windows Subsystem for Linux distros.
 
 ## Install
 
-1. Open a PowerShell prompt as an Administrator
-1. run
+```sh
+sh -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
+```
 
-   ```powershell
-   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/nerdyman/wsl-dx-scripts/main/clone.ps1'))
-   ```
+## Alias and Environment Files
 
-   **OR**
+Aliases are set in [`~/.config/aliases`](./.config/aliases).
 
-   [Download the Zip](https://github.com/nerdyman/wsl-dx-scripts/archive/refs/heads/main.zip), extract it, and run `./run.ps1` manually
+`~p` is aliased to `~/projects`, you can use it like:
 
-## Available Scripts
+```
+~p/my-cool-project/hello-world.sh
+```
 
-The PowerShell (`*.ps1`) scripts are only required to install and configure WSL on the Windows
-side - you can run the shell scripts (`*.sh)` directly on Linux if you want.
+The following paths are also sourced in `.zshrc` if they exist:
 
-### PowerShell Scripts
+- `~/.config/aliases.private`
+- `~/.config/env.private`
 
-- [`clone.ps1`](./clone.ps1) - Clone this repo and run the install
-- [`run.ps1`](./run.ps1) - Install WSL, the WSL distro and configure WSL
+## Supported Platforms
 
-### Shell Scripts
+The agnostic script _should_ work on any Unix/Linux OS. Ubuntu is currently the only
+distro with its own script to auto install dependencies for the agnostic script.
 
-- [`agnostic.sh`](./agnostic.sh) - \*_should_ work on any Linux distro
+## Scripts
+
+- [`agnostic.sh`](./agnostic.sh)
   - Install and configure Oh My Zsh
   - Install and configure nvm
   - Install and configure Starship Cross-Shell Prompt
@@ -56,10 +58,5 @@ side - you can run the shell scripts (`*.sh)` directly on Linux if you want.
   - Configure SSH for Zsh (SSH install is handled in distro script)
 - [`ubuntu.sh`](./ubuntu.sh) - Install and configure Ubuntu packages
   - [Install fzf, SSH, Zsh, and useful shell utilities](./ubuntu.sh#L8)
-  - Configure Zsh Syntax Highlighting
 
 \* Only tested on Ubuntu.
-
-## Notes
-
-[Chocolatey](https://chocolatey.org/) is used to install the distro.
