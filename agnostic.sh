@@ -78,4 +78,6 @@ export STARSHIP_SHELL=zsh
 eval "$(starship init zsh)"
 _EOF_
 
+zsh
+
 echo "[agnostic] Done"
