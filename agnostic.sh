@@ -33,7 +33,7 @@ echo "NVM_AUTOLOAD=1" >> "$_zshrc_path"
 echo "[agnostic][Set Shell Defaults]"
 cat >> "${_zshrc_path}" <<_EOF_
 export EDITOR=vim
-export TERM=xterm
+export TERM=xterm-256color
 _EOF_
 
 echo "[agnostic][Configure fzf for Zsh]"
