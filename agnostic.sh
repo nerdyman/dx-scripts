@@ -67,4 +67,9 @@ _EOF_
 echo "[agnostic][Install nvm]"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
+echo "[agnostic][Set Up Aliases]"
+_config_dir="${HOME}/.config"
+mkdir -p  "$_config_dir"
+cp ./.config/aliases "$_config_dir"
+
 echo "[agnostic] Done"
