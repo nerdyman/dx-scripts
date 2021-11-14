@@ -7,7 +7,7 @@ export __HAS_PREINSTALL_SCRIPT__=true
 echo "[install]"
 
 _temp_dir=$(mktemp -d)
-curl -SL https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz | tar xz -C "$_temp_dir"
+curl -o "$_temp_dir.tar.gz" -SL https://github.com/nerdyman/dx-scripts/archive/refs/heads/main.tar.gz | tar xz -C "$_temp_dir"
 
 echo "[install] => Using temporary directory $_temp_dir"
 

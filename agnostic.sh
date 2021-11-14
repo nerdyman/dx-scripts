@@ -20,14 +20,14 @@ _zshrc_path="${HOME}/.zshrc"
 echo "[agnostic][Set Shell Defaults]"
 if test -f "${_zshrc_path}"; then
     echo "[agnostic] => Copying existing ${_zshrc_path} to ${_zshrc_path}.old"
-    cp "${_zshrc_path}" "${_zshrc_path}.old"
+    mv "${_zshrc_path}" "${_zshrc_path}.old"
 fi
 
 echo "[agnostic][Oh My Zsh]"
 echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "[agnostic] => Enabling plugins"
-sed -i 's/plugins=\n(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn\n/' ~/.zshrc
+sed -i 's/plugins=(\n/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn\n/' ~/.zshrc
 
 echo "[agnostic][Set Shell Defaults]"
 cat >> "${_zshrc_path}" <<_EOF_
