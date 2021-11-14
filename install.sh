@@ -21,4 +21,6 @@ fi
 
 popd
 
+rm -r "$_temp_dir"
+
 echo "[install] Done"
