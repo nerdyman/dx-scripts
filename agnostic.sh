@@ -28,7 +28,6 @@ echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "[agnostic] => Enabling plugins"
 sed -i 's/plugins=\n(/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn\n/' ~/.zshrc
-echo "NVM_AUTOLOAD=1" >> "$_zshrc_path"
 
 echo "[agnostic][Set Shell Defaults]"
 cat >> "${_zshrc_path}" <<_EOF_
@@ -68,6 +67,14 @@ _EOF_
 
 echo "[agnostic][Install nvm]"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+echo "export NVM_AUTOLOAD=1" >> "$_zshrc_path"
+
+echo "[agnostic][Add Zsh hooks]"
+cat >> "$_zshrc_path" << _EOF_
+autoload -U add-zsh-hook
+autoload bashcompinit
+bashcompinit
+_EOF_
 
 echo "[agnostic][Starship Cross-Shell Prompt]"
 echo "[agnostic] => Installing..."
