@@ -27,7 +27,7 @@ echo "[agnostic][Oh My Zsh]"
 echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "[agnostic] => Enabling plugins"
-sed -i 's/plugins=(\n/plugins=(\n  dircycle\n  colored-man-pages\n  extract\n  fzf\n  git-flow-avh\n  grc\n  npm\n  nvm\n  ssh\n  yarn\n/' ~/.zshrc
+sed -i 's/plugins=(git/plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh\n yarn/' "${_zshrc_path}"
 
 echo "[agnostic][Set Shell Defaults]"
 cat >> "${_zshrc_path}" <<_EOF_
@@ -49,15 +49,15 @@ setopt HIST_SAVE_NO_DUPS
 _EOF_
 
 echo "[agnostic][Configure Zsh Syntax Highlighting]"
-if test -n "${__ZSH_SYNAX_HIGHLIGHTING_PATH__}"; then
-  echo "source ${__ZSH_SYNAX_HIGHLIGHTING_PATH__}" >> "$_zshrc_path"
+if test -n "${__ZSH_SYNTAX_HIGHLIGHTING_PATH__}"; then
+  echo "source ${__ZSH_SYNTAX_HIGHLIGHTING_PATH__}" >> "$_zshrc_path"
 else
-  echo "[agnostic] => __ZSH_SYNAX_HIGHLIGHTING_PATH__ environment variable is not set, cannot configure plugin"
+  echo "[agnostic] => __ZSH_SYNTAX_HIGHLIGHTING_PATH__ environment variable is not set, cannot configure plugin"
 fi
 
 echo "[agnostic][Set Up Aliases]"
 mkdir -p "${HOME}/.config"
-cp aliases "${HOME}/.config"
+cp ./.config/aliases "${HOME}/.config"
 cat >> "$_zshrc_path" <<_EOF_
 [[ -f "${HOME}/.config/aliases" ]] && source "${HOME}/.config/aliases"
 [[ -f "${HOME}/.config/aliases.private" ]] && source "${HOME}/.config/aliases.private"
@@ -89,4 +89,4 @@ if ! test -n "${__HAS_PREINSTALL_SCRIPT__}"; then
   zsh
 fi
 
-echo "[agnostic] Done"
+echo -e "[agnostic] Done\n"
