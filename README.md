@@ -14,7 +14,7 @@ bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh
 - Install and configure [Zsh](https://www.zsh.org/)
   - Set the default shell to Zsh
   - Install [Oh My Zsh](https://ohmyz.sh/)
-  - [Enable Oh My Zsh plugins](./agnostic.sh#L23)
+  - [Enable Oh My Zsh plugins](./agnostic.sh#L33)
   - Enable [Zsh Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - Install and configure [Starship Cross-Shell Prompt](https://starship.rs/)
 - Install and configure [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm)
