@@ -27,12 +27,14 @@ echo "[agnostic][Oh My Zsh]"
 echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo "[agnostic] => Enabling plugins"
-sed -i 's/plugins=(git/plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh-agent\n yarn/' "${_zshrc_path}"
+sed -i 's/plugins=(git/plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh-agent\n yarn\n/' "${_zshrc_path}"
 
 echo "[agnostic][Set Shell Defaults]"
 cat >> "${_zshrc_path}" <<_EOF_
+export CLICOLOR=1
 export EDITOR=vim
 export TERM=xterm-256color
+
 _EOF_
 
 echo "[agnostic][Configure fzf for Zsh]"
@@ -50,7 +52,7 @@ _EOF_
 
 echo "[agnostic][Configure Zsh Syntax Highlighting]"
 if test -n "${__ZSH_SYNTAX_HIGHLIGHTING_PATH__}"; then
-  echo "source ${__ZSH_SYNTAX_HIGHLIGHTING_PATH__}" >> "$_zshrc_path"
+  echo -e "source ${__ZSH_SYNTAX_HIGHLIGHTING_PATH__}\n" >> "$_zshrc_path"
 else
   echo "[agnostic] => __ZSH_SYNTAX_HIGHLIGHTING_PATH__ environment variable is not set, cannot configure plugin"
 fi
@@ -66,14 +68,15 @@ cat >> "$_zshrc_path" <<_EOF_
 _EOF_
 
 echo "[agnostic][Install nvm]"
+echo -e "export NVM_AUTOLOAD=1\n" >> "$_zshrc_path"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-echo "export NVM_AUTOLOAD=1" >> "$_zshrc_path"
 
 echo "[agnostic][Add Zsh hooks]"
 cat >> "$_zshrc_path" << _EOF_
 autoload -U add-zsh-hook
 autoload bashcompinit
 bashcompinit
+
 _EOF_
 
 echo "[agnostic][Starship Cross-Shell Prompt]"
