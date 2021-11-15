@@ -20,26 +20,17 @@ sudo chsh -s /bin/zsh
 
 _zshrc_path="${HOME}/.zshrc"
 
-echo "[agnostic][Set Shell Defaults]"
+echo "[agnostic][Set up Zsh]"
 if test -f "${_zshrc_path}"; then
     echo "[agnostic] => Copying existing ${_zshrc_path} to ${_zshrc_path}.old"
     mv "${_zshrc_path}" "${_zshrc_path}.old"
 fi
 
-echo "[agnostic][Set Shell Defaults]"
-cat >> "${_zshrc_path}" <<_EOF_
-export CLICOLOR=1
-export EDITOR=vim
-export TERM=xterm-256color
-# Internal variables
-NVM_AUTOLOAD=1
-_EOF_
-
 echo "[agnostic][Oh My Zsh]"
 echo "[agnostic] => Installing..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-echo "[agnostic] => Enabling plugins"
-sed -i 's/plugins=(git/plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh-agent\n yarn\n/' "${_zshrc_path}"
+echo "[agnostic] => Setting defaults and plugins"
+sed -i 's/plugins=(git/export CLICOLOR=1\nexport EDITOR=vim\nexport TERM=xterm-256color\nNVM_AUTOLOAD=1plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh-agent\n yarn\n/' "${_zshrc_path}"
 
 echo "[agnostic][Configure fzf for Zsh]"
 cat >> "${_zshrc_path}" <<_EOF_
