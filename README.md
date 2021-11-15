@@ -20,7 +20,7 @@ bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh
 - Install and configure [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm)
   - Enable Zsh hook to automatically load Node.js version from an `.nvmrc` config
 - Install and configure [Generic Colouriser (grc)](https://github.com/garabik/grc)
-  - Configure Zsh settings to for better `ls` colours
+  - Configure Zsh settings for better `ls` colours
 - Install and configure [fzf](https://github.com/junegunn/fzf) (fuzzy finder)
   - Configure fzf for Zsh
 - Install and configure SSH
