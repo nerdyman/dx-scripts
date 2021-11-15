@@ -1,6 +1,12 @@
 # Developer Experience (DX) Scripts
 
-Scripts to improve Developer Experience.
+Scripts to automatically install and configure shells for a pretty sweet Developer Experience 🧁
+
+## Install
+
+```sh
+bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
+```
 
 ## What do the Scripts do?
 
@@ -19,12 +25,6 @@ Scripts to improve Developer Experience.
   - Configure fzf for Zsh
 - Install and configure SSH
   - Configure SSH for Zsh
-
-## Install
-
-```sh
-bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
-```
 
 ## Alias and Environment Files
 
@@ -55,7 +55,7 @@ distro with its own script to auto install dependencies for the agnostic script.
   - Configure default shell (Zsh)
   - Configure fzf for Zsh (fzf install is handled in distro script)
   - Configure grc for Zsh (grc install is handled in distro script)
-  - Configure SSH for Zsh (SSH install is handled in distro script)
+  - Configure SSH for Zsh (SSH client install is handled in distro script)
 - [`ubuntu.sh`](./ubuntu.sh) - Install and configure Ubuntu packages
   - [Install fzf, SSH, Zsh, and useful shell utilities](./ubuntu.sh#L9)
 
