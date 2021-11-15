@@ -7,6 +7,9 @@ if test ! -f "/bin/zsh"; then
   exit 127
 fi
 
+echo "[agnostic][Install nvm]"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
 echo "[agnostic][Set Up Aliases]"
 _config_dir="${HOME}/.config"
 mkdir -p  "$_config_dir"
@@ -23,19 +26,20 @@ if test -f "${_zshrc_path}"; then
     mv "${_zshrc_path}" "${_zshrc_path}.old"
 fi
 
-echo "[agnostic][Oh My Zsh]"
-echo "[agnostic] => Installing..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-echo "[agnostic] => Enabling plugins"
-sed -i 's/plugins=(git/plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh-agent\n yarn\n/' "${_zshrc_path}"
-
 echo "[agnostic][Set Shell Defaults]"
 cat >> "${_zshrc_path}" <<_EOF_
 export CLICOLOR=1
 export EDITOR=vim
 export TERM=xterm-256color
-
+# Internal variables
+NVM_AUTOLOAD=1
 _EOF_
+
+echo "[agnostic][Oh My Zsh]"
+echo "[agnostic] => Installing..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+echo "[agnostic] => Enabling plugins"
+sed -i 's/plugins=(git/plugins=(\n dircycle\n colored-man-pages\n extract\n fzf\n git\n git-flow-avh\n grc\n npm\n nvm\n ssh-agent\n yarn\n/' "${_zshrc_path}"
 
 echo "[agnostic][Configure fzf for Zsh]"
 cat >> "${_zshrc_path}" <<_EOF_
@@ -66,10 +70,6 @@ cat >> "$_zshrc_path" <<_EOF_
 [[ -f "${HOME}/.config/env.private" ]] && source "${HOME}/.config/env.private"
 
 _EOF_
-
-echo "[agnostic][Install nvm]"
-echo -e "export NVM_AUTOLOAD=1\n" >> "$_zshrc_path"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 echo "[agnostic][Add Zsh hooks]"
 cat >> "$_zshrc_path" << _EOF_
