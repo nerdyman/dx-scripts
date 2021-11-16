@@ -8,6 +8,17 @@ Scripts to automatically install and configure shells for a pretty sweet Develop
 bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
 ```
 
+### WSL Ubuntu Users
+
+If you're using Ubuntu on WSL, it's recommended that you upgrade your distro and packages:
+
+```sh
+sudo apt-get update && \
+sudo apt-get upgrade -y && \
+sudo apt-get dist-upgrade -y && \
+bash -c "$(curl -fsSL https://raw.github.com/nerdyman/dx-scripts/main/install.sh)"
+```
+
 ## What do the Scripts do?
 
 - Install useful distro packages
@@ -44,7 +55,7 @@ The following paths are also sourced in `.zshrc` if they exist:
 ## Supported Platforms
 
 The agnostic script _should_ work on any Unix/Linux OS. Ubuntu is currently the only
-distro with its own script to auto install dependencies for the agnostic script.
+distro with its own script to auto-install dependencies for the agnostic script.
 
 ## Scripts
 
