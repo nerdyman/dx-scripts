@@ -1,6 +1,12 @@
+<div align="center">
+
 # Developer Experience (DX) Scripts
 
 Scripts to automatically install and configure shells for a pretty sweet Developer Experience 🧁
+
+https://user-images.githubusercontent.com/4908432/141783074-0609efa6-0967-4320-bf8a-77191d3c666c.mp4
+  
+</div>
 
 ## Install
 
